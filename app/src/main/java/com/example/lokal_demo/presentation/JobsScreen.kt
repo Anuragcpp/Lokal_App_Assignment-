@@ -1,83 +1,61 @@
 package com.example.lokal_demo.presentation
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.lokal_demo.model.Jobs
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.lokal_demo.model.Job
+import com.example.lokal_demo.presentation.components.JobCategoryScreen
 import com.example.lokal_demo.presentation.components.JobItemScreen
+import com.example.lokal_demo.viewModel.JobsScreenViewModel
 
 @Composable
-fun JobsScreen(modifier: Modifier = Modifier) {
+fun JobsScreen(
+    viewState : JobsScreenViewModel.JobsState,
+    navigateToDetailScreen : (Job) -> Unit
+) {
 
-    val jobs = remember { getJobsList() }
+    val jobViewModel : JobsScreenViewModel = viewModel()
 
-    LazyColumn {
-        items(jobs){
-            JobItemScreen( job = it)
+
+    Box(modifier = Modifier.fillMaxSize()){
+        when {
+            viewState.loading -> {
+                Column (modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    // for the loading progress bar
+//                    CircularProgressIndicator(modifier.align(Alignment.Center))
+                    CircularProgressIndicator()
+                    Text(
+                        text = "Loading....",
+//                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+            }
+
+            viewState.error != null -> {
+                Text(text = "Error Occurred ${viewState.error.toString()}")
+            }
+
+            else -> {
+                JobCategoryScreen(jobs = viewState.list, navigateToDetailScreen)
+            }
         }
     }
+
+
 }
 
 
-fun getJobsList () : List<Jobs> {
-    return listOf(
-        Jobs(
-            id = "1",
-            title = "Software engineer",
-            location = "Hydrabad",
-            minSalary = 20000f,
-            maxSalary = 30000f,
-            phoneNumber = "293877289"
-        ),
-        Jobs(
-            id = "1",
-            title = "Software engineer",
-            location = "Hydrabad",
-            minSalary = 20000f,
-            maxSalary = 30000f,
-            phoneNumber = "293877289"
-        ),
-        Jobs(
-            id = "1",
-            title = "Software engineer",
-            location = "Hydrabad",
-            minSalary = 20000f,
-            maxSalary = 30000f,
-            phoneNumber = "293877289"
-        ),
-        Jobs(
-            id = "1",
-            title = "Software engineer",
-            location = "Hydrabad",
-            minSalary = 20000f,
-            maxSalary = 30000f,
-            phoneNumber = "293877289"
-        ),
-        Jobs(
-            id = "1",
-            title = "Software engineer",
-            location = "Hydrabad",
-            minSalary = 20000f,
-            maxSalary = 30000f,
-            phoneNumber = "293877289"
-        ),
-        Jobs(
-            id = "1",
-            title = "Software engineer",
-            location = "Hydrabad",
-            minSalary = 20000f,
-            maxSalary = 30000f,
-            phoneNumber = "293877289"
-        ),
-        Jobs(
-            id = "1",
-            title = "Software engineer",
-            location = "Hydrabad",
-            minSalary = 20000f,
-            maxSalary = 30000f,
-            phoneNumber = "293877289"
-        )
-    )
-}

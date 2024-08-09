@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -66,4 +67,21 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(kotlin("script-runtime"))
+
+    // viewmodel dependencies
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
+
+    // retrofit dependencies
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+
+    //jsom to kotlin object mapping , retrofit convertor from http to gson
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    // image loading , coil extension
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
+    //navigation
+    val nav_version = "2.7.7"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 }

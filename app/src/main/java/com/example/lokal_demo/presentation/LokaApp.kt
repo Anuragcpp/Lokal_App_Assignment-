@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,32 +28,49 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lokal_demo.model.Job
+import com.example.lokal_demo.presentation.components.hexToColor
 
 @Composable
-fun LokalApp(modifier: Modifier = Modifier) {
+fun LokalApp(
+    navigateToDetailScreen : (Job) -> Unit
+) {
 
-    var bottomNavColorJob by remember{ mutableStateOf(Color.Green) }
-    var bottomNavColorBookmerk by remember{ mutableStateOf(Color.Green) }
+    val unSelectedColor : String = "#2d6a4f"
+    val selectedColor : String = "#b7e4c7"
+    var bottomNavColorJob by remember{ mutableStateOf(hexToColor(selectedColor)) }
+    var bottomNavColorBookmerk by remember{ mutableStateOf(hexToColor(unSelectedColor)) }
+    var whichOneSelected by remember { mutableStateOf("jobs") }
 
 
     Column ( modifier = Modifier
         .fillMaxSize()
-        .padding(10.dp),
+        .padding(0.dp),
         verticalArrangement = Arrangement.Bottom) {
 
         // content body
 
-        Box(modifier = Modifier)
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.88f)){
+
+//            if ( whichOneSelected == "jobs") JobsScreen(navigateToDetailScreen)
+//            else BookmerksScreen()
+
+        }
+
+        Spacer(modifier = Modifier.height(5.dp))
 
         //bottom navigation
         Row ( modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.12f)
+            .fillMaxHeight()
             .padding(start = 10.dp, top = 10.dp, bottom = 10.dp, end = 10.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
             ){
 
+            //job tab button
             Row (
                 modifier = Modifier
                     .fillMaxHeight()
@@ -60,8 +78,10 @@ fun LokalApp(modifier: Modifier = Modifier) {
                     .border(1.dp, color = Color.Black, shape = RoundedCornerShape(10.dp))
                     .background(bottomNavColorJob, shape = RoundedCornerShape(10.dp))
                     .clickable {
-                        if (bottomNavColorJob == Color.Green) bottomNavColorJob = Color.Gray
-                        else bottomNavColorJob = Color.Green
+                        whichOneSelected = "jobs"
+
+                        bottomNavColorJob = hexToColor(selectedColor)
+                        bottomNavColorBookmerk = hexToColor(unSelectedColor)
                     }
                     ,
                 horizontalArrangement = Arrangement.Center,
@@ -72,6 +92,7 @@ fun LokalApp(modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.width(10.dp))
 
+            //Bookmark tab button
             Row (
                 modifier = Modifier
                     .fillMaxWidth()
@@ -79,9 +100,9 @@ fun LokalApp(modifier: Modifier = Modifier) {
                     .border(1.dp, color = Color.Black, shape = RoundedCornerShape(10.dp))
                     .background(bottomNavColorBookmerk, shape = RoundedCornerShape(10.dp))
                     .clickable {
-                        if (bottomNavColorBookmerk == Color.Green) bottomNavColorBookmerk =
-                            Color.Gray
-                        else bottomNavColorBookmerk = Color.Green
+                        whichOneSelected = "bookmarks"
+                        bottomNavColorBookmerk = hexToColor(selectedColor)
+                        bottomNavColorJob = hexToColor(unSelectedColor)
                     },
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -99,5 +120,5 @@ fun LokalApp(modifier: Modifier = Modifier) {
 @Preview (showBackground = true)
 @Composable
 private fun LokalAppPreview() {
-    LokalApp()
+//    LokalApp()
 }
