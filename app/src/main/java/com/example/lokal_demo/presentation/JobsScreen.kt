@@ -1,5 +1,6 @@
 package com.example.lokal_demo.presentation
 
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,7 +23,8 @@ import com.example.lokal_demo.viewModel.JobsScreenViewModel
 @Composable
 fun JobsScreen(
     viewState : JobsScreenViewModel.JobsState,
-    navigateToDetailScreen : (Job) -> Unit
+    navigateToDetailScreen : (Job) -> Unit,
+    addData : (Job,String) -> Unit
 ) {
 
     val jobViewModel : JobsScreenViewModel = viewModel()
@@ -50,7 +52,7 @@ fun JobsScreen(
             }
 
             else -> {
-                JobCategoryScreen(jobs = viewState.list, navigateToDetailScreen)
+                JobCategoryScreen(jobs = viewState.list, navigateToDetailScreen, addData)
             }
         }
     }

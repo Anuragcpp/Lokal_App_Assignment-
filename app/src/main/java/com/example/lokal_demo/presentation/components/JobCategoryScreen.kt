@@ -1,5 +1,6 @@
 package com.example.lokal_demo.presentation.components
 
+import android.content.Context
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,12 +11,13 @@ import com.example.lokal_demo.model.Job
 @Composable
 fun JobCategoryScreen(
     jobs : List<Job>,
-    navigateToDetailScreen: (Job) -> Unit
+    navigateToDetailScreen: (Job) -> Unit,
+    addData : (Job,String) -> Unit
 ) {
 
     LazyColumn (modifier = Modifier.fillMaxSize()) {
         items(jobs){
-            JobItemScreen( job = it,navigateToDetailScreen )
+            JobItemScreen( job = it,navigateToDetailScreen, addData)
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.lokal_demo.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,11 +35,10 @@ import com.example.lokal_demo.presentation.components.hexToColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun JobDetailScreen(
+fun BookmarkJobDetailScreen(
     bookmark: Bookmark,
     backBtn : () -> Unit
 ) {
-
 
     Scaffold(
         topBar = {
@@ -109,22 +109,4 @@ fun JobDetailScreen(
         }
     }
 
-}
-
-@Composable
-fun DetailRow(label: String, value: String) {
-    Column(modifier = Modifier.padding(vertical = 8.dp)) {
-        Text(
-            text = label,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
-            color = hexToColor("#2C3E50")
-        )
-        Text(
-            text = value,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = hexToColor("#34495E")
-        )
-    }
 }

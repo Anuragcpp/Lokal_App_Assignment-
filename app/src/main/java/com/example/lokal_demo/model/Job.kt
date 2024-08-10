@@ -12,7 +12,7 @@ data class Job(
     val salary_min : Float,
     val salary_max : Float,
     val whatsapp_no : String,
-    val company_name : String
+    val company_name : String,
 ) : Parcelable
 
 data class JobsResponse (
