@@ -52,7 +52,6 @@ fun JobDetailScreen(
                             .heightIn(max = 24.dp)
                     )
                 },
-//                backgroundColor = hexToColor("#34495E"),
                 colors = TopAppBarDefaults.smallTopAppBarColors(
                     containerColor = hexToColor("#1d3557")
                 ),
